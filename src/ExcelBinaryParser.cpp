@@ -4,7 +4,6 @@
 #include "Utils.h"
 #include <vector>
 #include <algorithm>
-#include <regex>
 
 using Rcpp::as;
 
@@ -131,9 +130,17 @@ void ParseWorkbook(Rcpp::Environment xlsb_env) {
                 display_name = "#REF";
             } else {
                 // Excel escapes quotes (') in the sheet name with two single quotes ('')
-                std::string sheet_name = std::regex_replace(
-                    as<std::string>(sheet_names[extsheet_refs[defined_names[i].ixti].first_sheet]), 
-                    std::regex("'"), "''");
+                std::string sheet_name = as<std::string>(sheet_names[extsheet_refs[defined_names[i].ixti].first_sheet]);
+                std::string target = "'";
+                std::string replacement = "''";
+                
+                // Manually replace single quotes
+                size_t pos = 0;
+                while ((pos = sheet_name.find(target, pos)) != std::string::npos) {
+                  sheet_name.replace(pos, target.length(), replacement);
+                  pos += replacement.length(); // Move past the replacement
+                }
+              
                 
                 if (sheet_name.find_first_of(" \t") == std::string::npos) {
                     display_name = sheet_name + "!";

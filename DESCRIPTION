@@ -1,8 +1,8 @@
 Package: readxlsb
 Type: Package
 Title: Read 'Excel' Binary (.xlsb) Workbooks
-Version: 0.1.61
-Date: 2023-03-03
+Version: 0.1.62
+Date: 2025-02-21
 Authors@R: person("Michael", "Allen", role = c("aut", "cre"), email = "michael@velofrog.com")
 Depends: R (>= 3.3.0)
 Description: Import data from 'Excel' binary (.xlsb) workbooks into R.
@@ -19,7 +19,9 @@ LinkingTo:
     Rcpp
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder:
     knitr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
+Config/testthat/edition: 3
