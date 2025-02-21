@@ -1,12 +1,6 @@
 #ifndef ALTSTD_GET_TIME
 #define ALTSTD_GET_TIME
 
-#include <iostream>
-#include <cstdio>
-#include <ctime>
-
-using namespace readxlsb;
-
 namespace alt_std {
 
 // Parse string assuming format of %Y-%m-%dT%H:%M:%S
@@ -26,7 +20,7 @@ bool get_time(const std::string& src, std::tm* tmb) {
 
         // Convert to JulianDate and back to handle overflows (if needed)
         double serial = SerialDate::JulianDate(tmb->tm_year + 1900, tmb->tm_mon + 1, tmb->tm_mday,
-                                               tmb->tm_hour, tmb->tm_min, tmb->tm_sec) - BASE_JD;
+                                                         tmb->tm_hour, tmb->tm_min, tmb->tm_sec) - BASE_JD;
         SerialDate::BaseTotm(serial, *tmb);
 
         return true;
