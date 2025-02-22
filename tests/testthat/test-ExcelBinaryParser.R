@@ -18,3 +18,11 @@ test_that("read_xlsb() works", {
   expect_equal(dim(got), c(1, 1))
   
 })
+
+test_that("read numerics correctly (#8)", {
+  exp <- structure(list(a = c(-12811.27, -190565.87)),
+                   class = "data.frame", row.names = c(NA, -2L))
+  got <- read_xlsb(path = system.file("extdata", "TestBook.xlsb", package = "readxlsb"), 
+                   sheet = "negative_doubles", col_names = TRUE)
+  expect_equal(got, exp)
+})

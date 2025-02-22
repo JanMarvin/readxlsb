@@ -1,7 +1,7 @@
 Package: readxlsb
 Type: Package
 Title: Read 'Excel' Binary (.xlsb) Workbooks
-Version: 0.1.62
+Version: 0.1.63
 Date: 2025-02-21
 Authors@R: person("Michael", "Allen", role = c("aut", "cre"), email = "michael@velofrog.com")
 Depends: R (>= 3.3.0)

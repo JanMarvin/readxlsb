@@ -44,31 +44,26 @@ bool StreamReader::Cell(uint8_t *&content, int &max_length, int32_t &column, uin
 }
 
 bool StreamReader::RkNumber(uint8_t *&content, int &max_length, RkNumeric &result) {
-    uint32_t data;
+    int32_t data;
     if (max_length < 4) return false;
     data = content[0] | (content[1] << 8) | (content[2] << 16) | (content[3] << 24);
-    
+
     bool fx100 = (data & 0x1) != 0;
     bool f_int = (data & 0x2) != 0;
-    data = data >> 2;
 
     if (f_int) {
-        if (fx100) {
-            result.type = RkNumeric::DOUBLE;
-            result.double_value = ((double)data) / 100.0;
-        } else {
-            result.type = RkNumeric::INT;
-            result.int_value = (int)data;
-        }
+        data = data >> 2;
+        result.type = RkNumeric::DOUBLE;
+        result.double_value = (fx100 ? ((double)data) / 100.0 : ((double)data));
     } else {
         // data holds the 30 most significant bits of a floating point number
-        uint64_t value = data;
-        value = value << 34;
+        uint64_t value = ((uint32_t)data) & 0xfffffffcU;
+        value <<= 32;
         double *dbl = (double  *)&value;
         result.type = RkNumeric::DOUBLE;
         result.double_value = (fx100 ? *dbl/100.0 : *dbl);
     }
-    
+
     return true;
 }
 
