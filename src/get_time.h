@@ -1,6 +1,8 @@
 #ifndef ALTSTD_GET_TIME
 #define ALTSTD_GET_TIME
 
+using namespace readxlsb;
+
 namespace alt_std {
 
 // Parse string assuming format of %Y-%m-%dT%H:%M:%S
