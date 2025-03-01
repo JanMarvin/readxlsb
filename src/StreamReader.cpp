@@ -52,7 +52,7 @@ bool StreamReader::RkNumber(uint8_t *&content, int &max_length, RkNumeric &resul
     bool f_int = (data & 0x2) != 0;
 
     if (f_int) {
-        data = data >> 2;
+        data >>= 2;
         result.type = RkNumeric::DOUBLE;
         result.double_value = (fx100 ? ((double)data) / 100.0 : ((double)data));
     } else {
